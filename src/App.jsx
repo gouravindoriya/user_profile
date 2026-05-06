@@ -9,7 +9,7 @@ const App = () => {
 
     try {
       const response = await fetch(
-        'https://api.freeapi.app/api/v1/public/randomusers/user/random'
+        'https://api.freeapi.app/api/v1/public/quotes'
       )
 
       const result = await response.json()
@@ -58,11 +58,7 @@ const App = () => {
       <header className="h-16 bg-gray-800 rounded-lg flex items-center justify-between px-4 mb-10">
         
         <div className="flex items-center gap-4">
-          <img
-            className="h-10 w-10 rounded-full"
-            src={data.picture.medium}
-            alt="user"
-          />
+
 
           <h1 className="text-xl font-light text-gray-300">
             Random User Page
@@ -78,64 +74,20 @@ const App = () => {
         </button>
       </header>
 
-      {/* User Card */}
-      <section className="flex justify-center items-center">
-        
-        <div className="bg-[#028386] max-w-sm w-full p-6 rounded-xl shadow-lg border border-gray-700">
-          
-          <div className="flex flex-col items-center">
-            <img
-              className="w-24 h-24 rounded-full mb-5"
-              src={data.picture.large}
-              alt="profile"
-            />
+<section className="w-full grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 px-4">
 
-            <h2 className="text-2xl font-semibold text-center">
-              {data.name.title}. {data.name.first} {data.name.last}
-            </h2>
+      {
+  data?.data.map((quote, index) => (
+    <div key={index} className="mb-6 p-4 bg-gray-100 rounded-lg">
+      <p className="text-lg italic text-gray-800">"{quote.content}"</p>
+      <p className="text-sm text-gray-500 mt-2">- {quote.author}</p>
+    </div>
+  ))
+}
 
-            <p className="text-sm text-gray-300 mt-2">
-              {data.gender} • {data.dob.age} years old
-            </p>
-          </div>
-
-          {/* Contact Info */}
-          <div className="mt-6 space-y-2 text-sm">
-            <p>
-              <span className="font-semibold">Email:</span> {data.email}
-            </p>
-
-            <p>
-              <span className="font-semibold">Phone:</span> {data.phone}
-            </p>
-          </div>
-
-          {/* Address */}
-          <div className="mt-6 bg-blue-900 p-4 rounded-lg text-sm">
-            
-            <h3 className="font-semibold mb-2 text-base">Address</h3>
-
-            <ul className="space-y-1">
-              <li>
-                Street: {data.location.street.number}{' '}
-                {data.location.street.name}
-              </li>
-
-              <li>City: {data.location.city}</li>
-
-              <li>Postcode: {data.location.postcode}</li>
-
-              <li>
-                {data.location.state}, {data.location.country}
-              </li>
-
-              <li>
-                Timezone: {data.location.timezone.description}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+</section>
+   
+     
     </main>
   )
 }
